@@ -4,6 +4,8 @@ import { Fragment } from 'react'
 import { getEventById } from '../../dummy-data'
 
 import EventSummary from '../../components/events/EventSummary'
+import EventLogistics from '../../components/events/EventLogistics'
+import EventContent from '../../components/events/EventContent'
 
 export default function EventDetailsPage() {
   const router = useRouter()
@@ -16,6 +18,10 @@ export default function EventDetailsPage() {
   return (
     <Fragment>
       <EventSummary title={event.title}></EventSummary>
+      <EventLogistics date={event.date} address={event.location} image={event.image}></EventLogistics>
+      <EventContent>
+        <p>{event.description}</p>
+      </EventContent>
     </Fragment>
   )
 }
