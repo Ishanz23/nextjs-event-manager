@@ -11,7 +11,7 @@ export default function Header() {
       <nav className={classes.navigation}>
         <ul>
           <li>
-            <Link href='events'>Browse All Events</Link>
+            <Link href='/events'>Browse All Events</Link>
           </li>
         </ul>
       </nav>
