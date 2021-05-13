@@ -12,7 +12,7 @@ export default function Button(props) {
   }
 
   return (
-    <button classes={classes.btn} onClick={props.OnClick}>
+    <button className={classes.btn} onClick={props.OnClick}>
       {props.children}
     </button>
   )
