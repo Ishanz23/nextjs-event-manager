@@ -4,7 +4,7 @@ import { GetStaticProps } from 'next'
 
 import EventList from '../../components/events/EventList'
 import EventsSearch from '../../components/events/EventsSearch'
-import { objToArray } from '../../utils'
+import { getAllEvents } from '../../helpers/api-util'
 
 export default function AllEventsPage({ events }) {
   const router = useRouter()
@@ -24,15 +24,12 @@ export default function AllEventsPage({ events }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch('https://nextjs-event-manager-default-rtdb.asia-southeast1.firebasedatabase.app/events.json')
-  const eventsObj = await res.json()
-
-  let events = objToArray(eventsObj)
+  const events = await getAllEvents()
 
   return {
     props: {
       events,
     },
-    revalidate: 15,
+    revalidate: 600,
   }
 }

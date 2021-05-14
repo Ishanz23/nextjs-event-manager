@@ -5,7 +5,7 @@ import EventList from '../../components/events/EventList'
 import ResultsTitle from '../../components/events/ResultsTitle'
 import ErrorAlert from '../../components/ui/ErrorAlert'
 import Button from '../../components/ui/Button'
-import { objToArray } from '../../utils'
+import { getAllEvents } from '../../helpers/api-util'
 
 export default function FilteredEventsPage({ filteredEvents, error, year, month }) {
   if (!filteredEvents) {
@@ -63,10 +63,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
   }
 
-  const res = await fetch('https://nextjs-event-manager-default-rtdb.asia-southeast1.firebasedatabase.app/events.json')
-  const eventsObj = await res.json()
-
-  let events = objToArray(eventsObj)
+  const events = await getAllEvents()
 
   const filteredEvents = events.filter((event) => {
     const eventDate = new Date(event.date)

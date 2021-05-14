@@ -1,6 +1,6 @@
 import { GetStaticProps } from 'next'
 import EventList from '../components/events/EventList'
-import { objToArray } from '../utils'
+import { getFeaturedEvents } from '../helpers/api-util'
 
 export default function HomePage({ featuredEvents }) {
   return (
@@ -11,19 +11,12 @@ export default function HomePage({ featuredEvents }) {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const res = await fetch('https://nextjs-event-manager-default-rtdb.asia-southeast1.firebasedatabase.app/events.json')
-  const featuredEventsObj = await res.json()
-
-  let featuredEvents = objToArray(featuredEventsObj)
-
-  if (featuredEvents && featuredEvents.length) {
-    featuredEvents = featuredEvents.filter((event) => event.isFeatured)
-  }
+  const featuredEvents = await getFeaturedEvents()
 
   return {
     props: {
       featuredEvents,
     },
-    revalidate: 15,
+    revalidate: 600,
   }
 }
